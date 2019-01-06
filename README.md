@@ -61,7 +61,7 @@ and exposes the port required by the simulator to run.
 
 
 The model used was the kinematic model. This model has its limitations since does not account for tire forces, longitudinal forces, lateral forces, inertia, gravity, air resistance, drag, mass, etc.
-Nevertheless, for its simplicity and also the inherent capabilities of MPC that allow to constantly reevaluating the horizon at each time step make it an excellent choice for the task.
+Nevertheless, for its simplicity and also the inherent capabilities of MPC that allow to constantly reevaluate the horizon at each time step make it an excellent choice for the task.
 
 The **state** variables:
 
