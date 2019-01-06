@@ -59,7 +59,11 @@ and exposes the port required by the simulator to run.
 
 ### The Model
 
-The model used was the kinematic model. The **state** consist of the following variables:
+
+The model used was the kinematic model. This model has its limitations since does not account for tire forces, longitudinal forces, lateral forces, inertia, gravity, air resistance, drag, mass, etc.
+Nevertheless, for its simplicity and also the inherent capabilities of MPC that allow to constantly reevaluating the horizon at each time step make it an excellent choice for the task.
+
+The **state** variables:
 
 | variable | description       |
 |----------|-------------------|
@@ -70,14 +74,14 @@ The model used was the kinematic model. The **state** consist of the following v
 | cte      | cross-track error |
 | epsi     | heading error     |
 
-The model actuators are:
+The model **actuators**:
 
 | variable | description       |
 |----------|-------------------|
 | delta       | steering angle between [-25, 25] degrees       |
 | a        | acceleration, throttle and brake pedals        |
 
-The update equations shown below:
+The **update equations**:
 
 ![Kinematic Model - Update Equations][img2]
 
@@ -97,14 +101,15 @@ I also tried with N=10 and dt=0.05, but occasionally encounter a zig-zag behavio
 
 The code for preprocessed the waypoints is contained in lines 102 through 120 of the file `main.cpp`.
 
-Since coordinates are transformed to vehicle perspective, further cross-track error and heading error calculation are simplified.
+Since coordinates were transformed into vehicle perspective, cross-track error and heading error calculations were simplified
 
 ### Model Predictive Control with Latency
 
 This part of the code is contained in lines 129 through 142 of the file `main.cpp`.
 
-To deal with the latency issue I applied a latency delay to the kinematic
-update equations, and use the new values to initialize the MPC state.
+To deal with the latency issue I applied a latency delay of a 100 ms to the kinematic
+update equations, and use resulting values to initialize the MPC state.
+The goal is to initialize MPC with the future state of the car after the 100 ms of latency.
 
 ## Video
 
